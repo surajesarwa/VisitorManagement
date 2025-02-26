@@ -1,0 +1,65 @@
+/* Table Styling */
+.custom-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 0.85rem;
+  background-color: white;
+}
+
+/* Table Header */
+.custom-table thead {
+  background-color: #343a40;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.custom-table th {
+  padding: 10px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Table Body */
+.custom-table tbody tr {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.custom-table tbody tr:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* Table Cells */
+.custom-table td {
+  padding: 12px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Visitor Status Badges */
+.badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 5px 8px;
+  border-radius: 6px;
+}
+
+.badge.bg-success {
+  background-color: #28a745 !important;
+}
+
+.badge.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .custom-table th,
+  .custom-table td {
+    padding: 8px;
+    font-size: 0.8rem;
+  }
+}

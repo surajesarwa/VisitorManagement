@@ -1,0 +1,74 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 20px;
+  background: #fff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-toggle {
+  font-size: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icons i {
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+/* Notification Bell Icon */
+.notification-icon {
+  position: relative;
+}
+
+.notification-icon:hover {
+  color: #ffc107; /* Yellow on hover */
+}
+
+/* Optional: Add a red notification dot */
+.notification-icon::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  border-radius: 50%;
+  display: none; /* Show only if there are unread notifications */
+}
+
+/* Show red dot if there are unread notifications */
+.has-notifications::after {
+  display: block;
+}
+
+.settings-icon:hover {
+  color: #007bff;
+}
+
+.logout-icon:hover {
+  color: #dc3545;
+}

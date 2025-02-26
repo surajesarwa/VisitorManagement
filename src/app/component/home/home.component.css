@@ -1,0 +1,22 @@
+/* Main Content */
+.main-content {
+  margin-top: 0px; /* Push content below navbar */
+  margin-left: 200px;
+ padding-left: 10px;
+ padding-right: 10px;
+ padding-bottom: 10px;
+  transition: margin-left 0.3s ease-in-out;
+  /* background-color: beige; */
+}
+
+/* Adjust Content When Sidebar is Toggled */
+.content-shifted {
+  margin-left: 200px;
+}
+
+/* Mobile View Adjustments */
+@media (max-width: 768px) {
+  .main-content {
+      margin-left: 0;
+  }
+}

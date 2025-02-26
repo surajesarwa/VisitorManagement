@@ -1,0 +1,6 @@
+<app-navbar (toggleSidebarEvent)="toggleSidebar()"></app-navbar>
+<app-side-nav-bar [isSidebarCollapsed]="isSidebarCollapsed"></app-side-nav-bar>
+
+<div class="main-content" [class.content-shifted]="isSidebarCollapsed">
+  <router-outlet></router-outlet>
+</div>

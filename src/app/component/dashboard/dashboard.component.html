@@ -1,0 +1,61 @@
+<div class="container mt-3">
+  <!-- First Row: Four Compact Cards -->
+  <div class="row g-2">
+    <div class="col-md-3 col-sm-6 col-6">
+      <div class="stats-card small">
+        <div class="icon icon-visitors"><i class="fas fa-user"></i></div>
+        <p class="label">Today's Visitors</p>
+        <h3 class="value">{{ todaysVisitors }}</h3>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-6">
+      <div class="stats-card small">
+        <div class="icon icon-checked-in"><i class="fas fa-sign-in-alt"></i></div>
+        <p class="label">Checked In</p>
+        <h3 class="value">{{ checkedIn }}</h3>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-6">
+      <div class="stats-card small">
+        <div class="icon icon-checked-out"><i class="fas fa-sign-out-alt"></i></div>
+        <p class="label">Checked Out</p>
+        <h3 class="value">{{ checkedOut }}</h3>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-6">
+      <div class="stats-card small">
+        <div class="icon icon-pending"><i class="fas fa-clock"></i></div>
+        <p class="label">Yet To Check Out</p>
+        <h3 class="value">{{ yetToCheckOut }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Row: Three Large Compact Cards -->
+  <div class="row mt-3 g-2">
+    <div class="col-md-4 col-sm-12">
+      <div class="stats-card large">
+        <p class="label">Daily Visits (Last 7 Days)</p>
+        <canvas #dailyVisitsChart></canvas>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+      <div class="stats-card large">
+        <p class="label">Most Visited Departments</p>
+        <canvas #departmentVisitsChart></canvas>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+      <div class="stats-card large">
+        <p class="label">Recent Visits</p>
+        <ul class="recent-visits-list">
+          <li *ngFor="let visit of recentVisits">
+            <span class="visitor-id">{{ visit.id }}</span>
+            <span class="visitor-name">{{ visit.name }}</span>
+            <span class="visit-time" style="color: green;">{{ visit.time }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

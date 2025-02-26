@@ -1,0 +1,32 @@
+<nav class="sidebar" [class.sidebar-collapsed]="isSidebarCollapsed"> 
+  <div class="profile-section">
+    <img src="https://esarwa.com/assets/homepage/e-logo-2.svg" alt="Company Logo" class="profile-img">
+    <div class="profile-info">
+      <!-- <h1 class="profile-name">Company Name</h1> -->
+    </div>
+  </div>
+
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/home/dashboard" (click)="closeSidebar()">
+        <i class="fas fa-chart-line"></i> <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/home/create" (click)="closeSidebar()">
+        <i class="fas fa-user-plus"></i> <span>Create Entry</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/home/visitor-list" (click)="closeSidebar()">
+        <i class="fas fa-sign-out-alt"></i> <span>Mark Exit</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/home/search" (click)="closeSidebar()">
+        <i class="fas fa-users"></i> <span>Visitor List</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+<div class="backdrop" *ngIf="isSidebarCollapsed" (click)="toggleSidebar()"></div>

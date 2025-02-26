@@ -1,0 +1,193 @@
+<div class="container mt-3 card">
+  <div >
+    <div class="text-center py-2 rounded-top compact-header">
+      <i class="fas fa-user-check me-2"></i> Visitor Registration
+    </div>
+
+    <form [formGroup]="visitorForm" (ngSubmit)="onSubmit()">
+      <div class="row g-2">
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm p-2 text-center compact-photo">
+            <label class="form-label small fw-bold">Visitor Photo</label>
+
+            <video #videoElement class="border rounded shadow-sm w-100 compact-video" autoplay *ngIf="!photoCaptured"></video>
+
+            <button type="button" class="btn btn-primary btn-sm mt-1 w-100 compact-button" (click)="capturePhoto()" *ngIf="!photoCaptured">
+              <i class="fas fa-camera"></i> Take Picture
+            </button>
+
+            <canvas #canvasElement style="display: none;"></canvas>
+            <img *ngIf="photoCaptured" [src]="visitorForm.value.photo" class="border rounded shadow-sm w-100 mt-1 compact-image" alt="Captured Photo">
+
+            <button type="button" class="btn btn-danger btn-sm mt-1 w-100 compact-button" (click)="retryCapture()" *ngIf="photoCaptured">
+              <i class="fas fa-redo"></i> Try Again
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <div class="row g-1">
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">ID Number <span class="text-danger">*</span></label>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text compact-input-group-text"><i class="fas fa-id-card"></i></span>
+                <input type="text" class="form-control compact-input" formControlName="idNumber" placeholder="Enter ID">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">Full Name <span class="text-danger">*</span></label>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text compact-input-group-text"><i class="fas fa-user"></i></span>
+                <input type="text" class="form-control compact-input" formControlName="fullName" placeholder="Enter Full Name">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">Mobile Number</label>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text compact-input-group-text"><i class="fas fa-phone"></i></span>
+                <input type="text" class="form-control compact-input" formControlName="mobileNumber" placeholder="Enter Mobile">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">Email</label>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text compact-input-group-text"><i class="fas fa-envelope"></i></span>
+                <input type="email" class="form-control compact-input" formControlName="email" placeholder="Enter Email">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">Location</label>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text compact-input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                <input type="text" class="form-control compact-input" formControlName="location" placeholder="Enter Location">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">Department</label>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text compact-input-group-text"><i class="fas fa-building"></i></span>
+                <select class="form-select compact-select" formControlName="department">
+                  <option value="" selected disabled>Select Department</option>
+                  <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">Person to Meet <span class="text-danger">*</span></label>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text compact-input-group-text"><i class="fas fa-user-tie"></i></span>
+                <input type="text" class="form-control compact-input" formControlName="personToMeet" placeholder="Enter Name">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">Vehicle</label>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text compact-input-group-text"><i class="fas fa-car"></i></span>
+                <select class="form-select compact-select" formControlName="vehicle" (change)="onVehicleChange($event)">
+                  <option value="No" selected>No</option>
+                  <option value="Yes">Yes</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-6" *ngIf="showVehicleNumber">
+              <label class="form-label small fw-bold">Vehicle Number</label>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text compact-input-group-text"><i class="fas fa-car-side"></i></span>
+                <input type="text" class="form-control compact-input" formControlName="vehicleNumber" placeholder="Enter Vehicle Number">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Material Fields -->
+        <div class="col-12 mt-2">
+          <label class="form-label small fw-bold">Materials</label>
+          <div formArrayName="materials">
+            <div *ngFor="let material of materials.controls; let i = index" [formGroupName]="i" class="row g-2 mb-2">
+              <div class="col-md-10">
+                <div class="input-group input-group-sm">
+                  <span class="input-group-text compact-input-group-text"><i class="fas fa-box"></i></span>
+                  <input type="text" class="form-control compact-input" formControlName="materialName" placeholder="Enter Material Name">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-danger btn-sm w-100" (click)="removeMaterial(i)">
+                  <i class="fas fa-times"></i> Remove
+                </button>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary btn-sm mt-2" (click)="addMaterial()">
+            <i class="fas fa-plus"></i> Add Material
+          </button>
+        </div>
+
+        <div class="col-12 mt-2">
+          <label class="form-label small fw-bold">Description</label>
+          <div class="input-group input-group-sm">
+            <span class="input-group-text compact-input-group-text"><i class="fas fa-comment-dots"></i></span>
+            <textarea class="form-control compact-textarea" rows="2" formControlName="description" placeholder="Additional Details"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center gap-2 mt-2">
+        <button type="submit" class="btn btn-primary btn-sm px-3 compact-button">
+          <i class="fas fa-paper-plane me-1"></i> Submit
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm px-3 compact-button" (click)="onReset()">
+          <i class="fas fa-sync-alt me-1"></i> Reset
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Toast Notifications -->
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1050">
+  <!-- Success Toast -->
+  <div
+    id="successToast"
+    class="toast align-items-center text-white bg-success border-0"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="d-flex">
+      <div class="toast-body">✅ Visitor added successfully!</div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+
+  <!-- Error Toast -->
+  <div
+    id="errorToast"
+    class="toast align-items-center text-white bg-danger border-0"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="d-flex">
+      <div class="toast-body">❌ All fields are required! Something went wrong.</div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+</div>

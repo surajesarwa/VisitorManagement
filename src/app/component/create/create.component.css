@@ -1,0 +1,79 @@
+:host {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
+
+.heading {
+  background: linear-gradient(135deg, #007bff, #6610f2);
+  color: white;
+  font-size: 13px;
+  height: 35px;
+  display: flex;
+  font-weight: 300;
+  align-items: center;
+  justify-content: center;
+}
+
+.compact-card {
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.compact-header {
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+.compact-input-group-text {
+  background-color: #e9ecef;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.compact-input, .compact-select, .compact-textarea {
+  font-size: 0.875rem;
+  padding: 0.4rem;
+}
+
+.compact-button {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.75rem;
+}
+
+.compact-photo {
+  padding: 0.5rem;
+}
+
+.compact-video,
+.compact-image {
+  max-height: 180px;
+}
+
+.input-group-sm .form-control,
+.input-group-sm .input-group-text {
+  height: 30px;
+  font-size: 0.8rem;
+}
+
+textarea.compact-textarea {
+  resize: none;
+  height: 60px;
+}
+
+/* Reduce margins for compact spacing */
+.row.g-2 {
+  margin-bottom: 0.5rem;
+}
+
+button.btn-sm {
+  padding: 4px 10px;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .compact-card {
+    padding: 0.8rem;
+  }
+}
+

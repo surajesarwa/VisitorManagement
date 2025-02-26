@@ -1,0 +1,134 @@
+<div class="container mt-3 card bg-white">
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
+    <div class="text-center py-2 rounded-top compact-header">
+      <i class="fa fa-list-alt me-2"></i> Pending Visitor List
+    </div>
+    <button class="btn btn-primary btn-sm px-3 shadow-sm" (click)="navigateToEntry()">+ Create Entry</button>
+  </div>
+
+  <div class="row g-2 mb-3">
+    <div class="col-12 col-md-8">
+      <div class="input-group shadow-sm">
+        <span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
+        <input type="text" class="form-control form-control-sm" placeholder="Search by ID, Name, or Mobile"
+          [(ngModel)]="searchText" (input)="applyFilter()">
+      </div>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table custom-table shadow-sm">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Mobile</th>
+          <th>Purpose</th>
+          <th>Time In</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let visitor of paginatedVisitors; let i = index">
+          <td>{{ (currentPage - 1) * (+itemsPerPage) + i + 1 }}</td>
+          <td class="fw-bold text-secondary">{{ visitor.visitorNumber }}</td>
+          <td>{{ visitor.name }}</td>
+          <td>{{ visitor.mobile }}</td>
+          <td>{{ visitor.purpose }}</td>
+          <td class="text-success fw-bold">{{ visitor.timeIn || 'Not Marked' }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm px-2 py-1 shadow-sm"
+              (click)="openExitConfirmation(visitor)">
+              Mark Exit
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3">
+    <nav>
+      <ul class="pagination pagination-sm mb-2 mb-md-0 shadow-sm">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a class="page-link" (click)="changePage(currentPage - 1)">« Prev</a>
+        </li>
+        <li class="page-item" *ngFor="let page of [].constructor(totalPages()); let i = index"
+          [class.active]="i + 1 === currentPage">
+          <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages()">
+          <a class="page-link" (click)="changePage(currentPage + 1)">Next »</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="text-end">
+      <label for="perPage" class="me-1 small">Rows per page:</label>
+      <select id="perPage" class="form-select form-select-sm shadow-sm w-auto"
+        [(ngModel)]="itemsPerPage" (change)="applyFilter()">
+        <option *ngFor="let option of pageSizeOptions" [value]="option">{{ option }}</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exitConfirmationModal" tabindex="-1" aria-labelledby="exitConfirmationModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content shadow-sm">
+      <div class="modal-header bg-danger text-white">
+        <h6 class="modal-title" id="exitConfirmationModalLabel">Confirm Visitor Exit</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p class="fw-bold small">Is the visitor taking any materials outside?</p>
+        <div class="d-flex gap-1 justify-content-center">
+          <button type="button" class="btn btn-secondary btn-sm px-3" (click)="handleExitConfirmation(false)">No</button>
+          <button type="button" class="btn btn-primary btn-sm px-3" (click)="handleExitConfirmation(true)">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="materialDetailsModal" tabindex="-1" aria-labelledby="materialDetailsModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content shadow-sm">
+      <div class="modal-header bg-primary text-white">
+        <h6 class="modal-title" id="materialDetailsModalLabel">Add Material Details</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let material of materials; let i = index" class="mb-2">
+          <input type="text" class="form-control form-control-sm shadow-sm" [(ngModel)]="material.name"
+            placeholder="Material Name">
+          <input type="text" class="form-control form-control-sm mt-1 shadow-sm" [(ngModel)]="material.details"
+            placeholder="Material Details">
+          <button type="button" class="btn btn-danger btn-sm mt-1 shadow-sm" (click)="removeMaterial(i)">Remove</button>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm shadow-sm" (click)="addMaterial()">+ Add More</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary btn-sm shadow-sm" (click)="confirmExitWithMaterial()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content shadow-sm">
+      <div class="modal-header bg-success text-white">
+        <h6 class="modal-title" id="messageModalLabel">Success</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>Exit Successfully Done</p>
+      </div>
+    </div>
+  </div>
+</div>

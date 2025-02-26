@@ -1,0 +1,113 @@
+<div class="container mt-3 compact-form card">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <input type="text" class="form-control w-50" placeholder="Search visitors..." [(ngModel)]="searchQuery" (input)="filterVisitors()">
+    <select class="form-select w-auto d-inline-block ms-2" >
+      <option value="all">All Time Entries</option>
+      <option value="today">Today's Entries</option>
+      <option value="last7days">Last 7 Days</option>
+      <option value="last1month">Last 1 Month</option>
+    </select>
+    <div>
+      <button class="btn btn-outline-primary btn-sm me-2" [class.active]="displayMode === 'list'" (click)="toggleView('list')">
+        <i class="fa fa-list"></i>
+      </button>
+      <button class="btn btn-outline-primary btn-sm" [class.active]="displayMode === 'grid'" (click)="toggleView('grid')">
+        <i class="fa fa-th"></i>
+      </button>
+    </div>
+  </div>
+  
+
+  <div *ngIf="displayMode === 'list'">
+    <div *ngFor="let visitor of paginatedVisitors; let i = index" class="visitor-card">
+      <div class="visitor-card-content">
+        <strong>{{ (currentPage - 1) * pageSize + i + 1 }}</strong>
+        <div class="visitor-card-details">
+          <span class="compact-text"><strong>Name -</strong>{{ visitor.name }}</span><br>
+          <span class="compact-text"><strong>Id Number -</strong>{{ visitor.idNumber }}</span><br>
+          <span class="compact-text"><strong>Mobile Number -</strong>{{ visitor.mobileNumber }}</span>
+        </div>
+      </div>
+      <i class="fa fa-eye icon-btn" (click)="viewDetails(visitor)"></i>
+    </div>
+  </div>
+
+  <div *ngIf="displayMode === 'grid'" class="row">
+    <div *ngFor="let visitor of paginatedVisitors" class="col-md-4 col-sm-6 mb-2">
+      <div class="card p-2">
+        <h6 class="mb-1">{{ visitor.name }}</h6>
+        <p class="compact-text"><strong>ID:</strong> {{ visitor.idNumber }}</p>
+        <p class="compact-text"><strong>Number:</strong>
+          <a [href]="'tel:' + visitor.mobileNumber" class="text-decoration-none text-primary">
+            {{ visitor.mobileNumber }}
+          </a>
+        </p>
+        <div class="text-end">
+          <i class="fa fa-eye icon-btn" (click)="viewDetails(visitor)"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mt-3">
+    <ul class="pagination mb-0">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
+      </li>
+      <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+        [class.active]="i + 1 === currentPage">
+        <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
+      </li>
+    </ul>
+
+    <select class="form-select w-auto ms-auto" (change)="onPageSizeChange($event)">
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="50">50</option>
+      <option value="0">All</option>
+    </select>
+  </div>
+</div>
+
+<div class="modal fade" id="visitorModal" tabindex="-1" aria-labelledby="visitorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content shadow-lg border-0 rounded">
+      <div class="modal-header bg-primary text-white py-2">
+        <h6 class="modal-title" id="visitorModalLabel">Visitor Details</h6>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-3">
+        <div *ngIf="selectedVisitor" class="small">
+          <p class="mb-1"><strong>Name:</strong> {{ selectedVisitor.name }}</p>
+          <p class="mb-1"><strong>ID:</strong> {{ selectedVisitor.idNumber }}</p>
+          <p class="mb-1"><strong>Vehicle Number:</strong>
+            <span *ngIf="selectedVisitor.vehicleNumber !== '-'">
+              <a [href]="'tel:' + selectedVisitor.vehicleNumber" class="text-decoration-none text-primary">
+                {{ selectedVisitor.vehicleNumber }}
+              </a>
+            </span>
+            <span *ngIf="selectedVisitor.vehicleNumber === '-'">N/A</span>
+          </p>
+          <p class="mb-1"><strong>Mobile Number:</strong>
+            <a [href]="'tel:' + selectedVisitor.mobileNumber" class="text-decoration-none text-primary">
+              {{ selectedVisitor.mobileNumber }}
+            </a>
+          </p>
+          <p class="mb-1"><strong>Department:</strong> {{ selectedVisitor.department }}</p>
+          <p class="mb-1"><strong>Person to Meet:</strong> {{ selectedVisitor.personToMeet }}</p>
+          <hr class="my-2">
+          <p class="mb-1"><strong>Entry:</strong> {{ selectedVisitor.entryDate }} at {{ selectedVisitor.entryTime }}</p>
+          <p class="mb-1"><strong>Entry Materials:</strong> {{ selectedVisitor.entryMaterials.join(', ') }}</p>
+          <p class="mb-1"><strong>Exit:</strong> {{ selectedVisitor.exitDate || ' ' }}  {{ selectedVisitor.exitTime || 'Not exited' }}</p>
+          <p class="mb-1"><strong>Exit Materials:</strong> {{ selectedVisitor.exitMaterials.length > 0 ? selectedVisitor.exitMaterials.join(', ') : 'Not exited' }}</p>
+        </div>
+      </div>
+      <div class="modal-footer py-2">
+        <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

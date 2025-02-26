@@ -1,0 +1,13 @@
+<nav class="navbar">
+  <button class="sidebar-toggle d-md-none" (click)="toggleSidebar()">☰</button>
+  <h5 class="brand-name"></h5>
+  <div class="user-profile">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpCKq1XnPYYDaUIlwlsvmLPZ-9-rdK28RToA&s" 
+         alt="User Profile" class="profile-img">
+    <div class="icons">
+      <i class="fas fa-bell notification-icon" (click)="openNotifications()"></i>
+      <i class="fas fa-cog settings-icon" (click)="openSettings()"></i>
+      <i class="fas fa-sign-out-alt logout-icon" (click)="logout()"></i>
+    </div>
+  </div>
+</nav>
