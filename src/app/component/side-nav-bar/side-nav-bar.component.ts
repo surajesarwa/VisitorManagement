@@ -22,4 +22,11 @@ export class SideNavBarComponent {
       this.isSidebarCollapsed = false;
     }
   }
+
+
+  logout() {
+    // Perform logout actions (clear session, navigate to login, etc.)
+    alert('Logging out...');
+   
+  }
 }

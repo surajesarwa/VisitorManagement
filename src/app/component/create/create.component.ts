@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
+declare var bootstrap: any; // Declare bootstrap to use Toast
+
 @Component({
   selector: 'app-create',
   standalone: true,
@@ -27,7 +29,7 @@ export class CreateComponent implements OnInit {
     'Operations'
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.visitorForm = this.fb.group({
@@ -39,8 +41,8 @@ export class CreateComponent implements OnInit {
       department: [''],
       vehicle: ['No'],
       vehicleNumber: [''],
-      personToMeet: [''],
-      purpose: [''],
+      personToMeet: ['', Validators.required], // Added required validator
+      purposeToMeet: ['', Validators.required], // Added required validator
       duration: [''],
       description: [''],
       photo: [''],
@@ -75,12 +77,12 @@ export class CreateComponent implements OnInit {
       console.warn('Camera access is only available in the browser.');
       return;
     }
-  
+
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       alert('Camera access is not supported in this browser.');
       return;
     }
-  
+
     navigator.mediaDevices
       .getUserMedia({ video: true })
       .then((stream) => {
@@ -95,7 +97,6 @@ export class CreateComponent implements OnInit {
         alert('Error accessing the camera. Please check browser permissions.');
       });
   }
-  
 
   capturePhoto(): void {
     if (!this.videoElement || !this.canvasElement) return;
@@ -149,8 +150,10 @@ export class CreateComponent implements OnInit {
       localStorage.setItem('visitorData', JSON.stringify(visitorData));
 
       this.onReset();
+      this.showToast('success'); // Show success toast
     } else {
       console.error('Form is invalid');
+      this.showToast('error'); // Show error toast
     }
   }
 
@@ -160,5 +163,14 @@ export class CreateComponent implements OnInit {
     this.photoCaptured = false;
     this.stopCamera();
     this.startCamera();
+  }
+
+  showToast(type: 'success' | 'error'): void {
+    const toastId = type === 'success' ? 'successToast' : 'errorToast';
+    const toastEl = document.getElementById(toastId);
+    if (toastEl) {
+      const toast = new bootstrap.Toast(toastEl);
+      toast.show();
+    }
   }
 }

@@ -11,9 +11,12 @@
   transition: transform 0.3s ease-in-out;
   z-index: 1050;
   font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-/* Profile Section Styling */
+/* Profile Section */
 .profile-section {
   display: flex;
   align-items: center;
@@ -24,28 +27,13 @@
 }
 
 .profile-img {
-  width: 80px;
+  width: 120px;
   height: auto;
-  margin-bottom: 10px;
-}
-
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
-}
-
-.profile-name {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  margin: 0;
+  margin-bottom: 5px;
 }
 
 /* Sidebar Navigation */
 .nav {
-  margin-top: 20px;
   list-style: none;
   padding: 0;
 }
@@ -82,7 +70,43 @@
   color: #007bff;
 }
 
-/* Backdrop for mobile view */
+/* Sidebar Footer */
+.sidebar-footer {
+  margin-top: auto;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+}
+
+/* Help Button */
+.help-btn {
+  color: #007bff;
+}
+
+.help-btn:hover {
+  background-color: #f5f5f5;
+  color: #0056b3;
+}
+
+/* Logout Button */
+.logout-item {
+  padding-top: 2px;
+}
+
+.logout-btn {
+  color: #d9534f;
+}
+
+.logout-btn:hover {
+  background-color: #f5f5f5;
+  color: #c9302c;
+}
+
+.logout-btn i,
+.help-btn i {
+  color: inherit;
+}
+
+/* Backdrop for Mobile View */
 .backdrop {
   position: fixed;
   top: 0;
@@ -91,7 +115,6 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1049;
-  display: block;
 }
 
 .sidebar-collapsed {

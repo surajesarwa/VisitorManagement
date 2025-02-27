@@ -78,6 +78,8 @@
               </div>
             </div>
 
+            
+
             <div class="col-md-6">
               <label class="form-label small fw-bold">Person to Meet <span class="text-danger">*</span></label>
               <div class="input-group input-group-sm">
@@ -85,6 +87,15 @@
                 <input type="text" class="form-control compact-input" formControlName="personToMeet" placeholder="Enter Name">
               </div>
             </div>
+
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">Purpose to Meet <span class="text-danger">*</span></label>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text compact-input-group-text"><i class="fas fa-comment-alt"></i></span>
+                <input type="text" class="form-control compact-input" formControlName="purposeToMeet" placeholder="Enter Purpose">
+              </div>
+            </div>
+            
 
             <div class="col-md-6">
               <label class="form-label small fw-bold">Vehicle</label>
@@ -134,7 +145,7 @@
           <label class="form-label small fw-bold">Description</label>
           <div class="input-group input-group-sm">
             <span class="input-group-text compact-input-group-text"><i class="fas fa-comment-dots"></i></span>
-            <textarea class="form-control compact-textarea" rows="2" formControlName="description" placeholder="Additional Details"></textarea>
+            <textarea class="form-control compact-textarea" rows="4" formControlName="description" placeholder="Additional Details"></textarea>
           </div>
         </div>
       </div>
@@ -171,6 +182,8 @@
       ></button>
     </div>
   </div>
+
+  
 
   <!-- Error Toast -->
   <div

@@ -1,4 +1,4 @@
-<nav class="sidebar" [class.sidebar-collapsed]="isSidebarCollapsed"> 
+<nav class="sidebar" [class.sidebar-collapsed]="isSidebarCollapsed">
   <div class="profile-section">
     <img src="https://esarwa.com/assets/homepage/e-logo-2.svg" alt="Company Logo" class="profile-img">
     <div class="profile-info">
@@ -28,5 +28,22 @@
       </a>
     </li>
   </ul>
+
+  <!-- Help & Logout Section -->
+  <div class="sidebar-footer">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link help-btn">
+          <i class="fas fa-question-circle"></i> <span>Help</span>
+        </a>
+      </li>
+      <li class="nav-item logout-item">
+        <a class="nav-link logout-btn" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 </nav>
+
 <div class="backdrop" *ngIf="isSidebarCollapsed" (click)="toggleSidebar()"></div>

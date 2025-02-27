@@ -1,42 +1,22 @@
-/* Visitor Card Styling */
+/* Visitor Image */
+.visitor-image,
+.grid-visitor-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #007bff;
+}
+
+/* Visitor Card */
 .visitor-card {
   background: white;
   transition: 0.3s;
-  font-size: 14px;
   padding: 12px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   border-left: 5px solid #007bff;
   margin-bottom: 10px;
-}
-
-.visitor-card:hover {
-  background: #f8f9fa;
-}
-
-/* Visitor Details */
-.visitor-card-content {
-  display: flex;
-  align-items: center;
-}
-
-.visitor-card-details {
-  margin-left: 12px;
-  line-height: 1.4;
-}
-
-.visitor-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-}
-
-.visitor-id {
-  font-size: 13px;
-  color: #666;
 }
 
 /* Action Icon */
@@ -51,22 +31,75 @@
   color: #0056b3;
 }
 
-/* Grid View Styling */
+/* Responsive Grid Card */
 .card {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 12px;
 }
 
-.compact-text {
-  font-size: 13px;
-  color: #555;
-  margin-bottom: 4px;
+/* Pagination */
+.pagination {
+  flex-wrap: wrap;
 }
 
-/* Search Bar */
-.search-bar {
-  border-radius: 20px;
-  padding: 8px 12px;
+/* Center Pagination on Small Screens */
+@media (max-width: 768px) {
+  .pagination {
+    justify-content: center;
+  }
+}
+/* Grid Card Container */
+.visitor-grid-card {
+  background: white;
+  transition: 0.3s;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  text-align: center;
 }
 
+.visitor-grid-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Visitor Image */
+.grid-visitor-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #007bff;
+}
+
+/* Image Container */
+.visitor-image-container {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  padding: 5px;
+  border: 2px solid #007bff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Compact Text */
+p {
+  font-size: 14px;
+  color: #333;
+}
+
+/* View Button */
+.btn-outline-primary {
+  font-size: 14px;
+  padding: 5px 10px;
+}
+
+/* Responsive Spacing */
+@media (max-width: 768px) {
+  .visitor-grid-card {
+    padding: 10px;
+  }
+}
