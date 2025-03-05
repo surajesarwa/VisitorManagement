@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 declare var bootstrap: any; // Declare bootstrap to use Toast
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,RouterLink],
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
@@ -41,8 +42,8 @@ export class CreateComponent implements OnInit {
       department: [''],
       vehicle: ['No'],
       vehicleNumber: [''],
-      personToMeet: ['', Validators.required], // Added required validator
-      purposeToMeet: ['', Validators.required], // Added required validator
+      personToMeet: ['', Validators.required],
+      purposeToMeet: ['', Validators.required],
       duration: [''],
       description: [''],
       photo: [''],
@@ -57,7 +58,12 @@ export class CreateComponent implements OnInit {
   }
 
   addMaterial(): void {
-    this.materials.push(this.fb.group({ materialName: ['', Validators.required] }));
+    this.materials.push(this.fb.group({
+      materialName: ['', Validators.required],
+      materialDetails: ['', Validators.required],
+      materialType: ['Visitor', Validators.required],  // New dropdown field
+      returnable: ['Yes', Validators.required]         // New dropdown field
+    }));
   }
 
   removeMaterial(index: number): void {

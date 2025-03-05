@@ -1,4 +1,4 @@
-<nav class="sidebar" [class.sidebar-collapsed]="isSidebarCollapsed">
+<nav class="sidebar" [class.sidebar-collapsed]="isSidebarCollapsed"> 
   <div class="profile-section">
     <img src="https://esarwa.com/assets/homepage/e-logo-2.svg" alt="Company Logo" class="profile-img">
     <div class="profile-info">
@@ -25,6 +25,11 @@
     <li class="nav-item">
       <a class="nav-link" routerLink="/home/search" (click)="closeSidebar()">
         <i class="fas fa-users"></i> <span>Visitor List</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/home/material" (click)="closeSidebar()">
+        <i class="fas fa-box"></i> <span>Material List</span>
       </a>
     </li>
   </ul>

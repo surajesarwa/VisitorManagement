@@ -5,6 +5,7 @@ import { CreateComponent } from './component/create/create.component';
 import { SearchComponent } from './component/search/search.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { VisitorListComponent } from './visitor-list/visitor-list.component';
+import { MaterialComponent } from './material/material.component';
 
 export const routes: Routes = [
     {
@@ -38,6 +39,11 @@ export const routes: Routes = [
             {
                 path:'visitor-list',
                 component:VisitorListComponent,
+                pathMatch:'full'
+            },
+            {
+                path:'material',
+                component:MaterialComponent,
                 pathMatch:'full'
             }
         ]

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 declare var bootstrap: any; // Import Bootstrap JS
 
@@ -24,7 +24,7 @@ interface Material {
 @Component({
   selector: 'app-visitor-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterLink],
   templateUrl: './visitor-list.component.html',
   styleUrls: ['./visitor-list.component.css'],
 })

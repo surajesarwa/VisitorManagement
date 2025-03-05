@@ -1,6 +1,12 @@
-<div class="container mt-3 card">
-  <div >
-    <div class="text-center py-2 rounded-top compact-header">
+<div class="container-fluid mt-3 ">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Create Visitor</li>
+    </ol>
+  </nav>
+  <div class="card">
+    <div class="text-center py-2 rounded-top compact-header " >
       <i class="fas fa-user-check me-2"></i> Visitor Registration
     </div>
 
@@ -77,63 +83,53 @@
                 </select>
               </div>
             </div>
-
-            
-
-            <div class="col-md-6">
-              <label class="form-label small fw-bold">Person to Meet <span class="text-danger">*</span></label>
-              <div class="input-group input-group-sm">
-                <span class="input-group-text compact-input-group-text"><i class="fas fa-user-tie"></i></span>
-                <input type="text" class="form-control compact-input" formControlName="personToMeet" placeholder="Enter Name">
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <label class="form-label small fw-bold">Purpose to Meet <span class="text-danger">*</span></label>
-              <div class="input-group input-group-sm">
-                <span class="input-group-text compact-input-group-text"><i class="fas fa-comment-alt"></i></span>
-                <input type="text" class="form-control compact-input" formControlName="purposeToMeet" placeholder="Enter Purpose">
-              </div>
-            </div>
-            
-
-            <div class="col-md-6">
-              <label class="form-label small fw-bold">Vehicle</label>
-              <div class="input-group input-group-sm">
-                <span class="input-group-text compact-input-group-text"><i class="fas fa-car"></i></span>
-                <select class="form-select compact-select" formControlName="vehicle" (change)="onVehicleChange($event)">
-                  <option value="No" selected>No</option>
-                  <option value="Yes">Yes</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="col-md-6" *ngIf="showVehicleNumber">
-              <label class="form-label small fw-bold">Vehicle Number</label>
-              <div class="input-group input-group-sm">
-                <span class="input-group-text compact-input-group-text"><i class="fas fa-car-side"></i></span>
-                <input type="text" class="form-control compact-input" formControlName="vehicleNumber" placeholder="Enter Vehicle Number">
-              </div>
-            </div>
           </div>
         </div>
 
-        <!-- Dynamic Material Fields -->
+        <!-- Materials Section -->
         <div class="col-12 mt-2">
           <label class="form-label small fw-bold">Materials</label>
           <div formArrayName="materials">
             <div *ngFor="let material of materials.controls; let i = index" [formGroupName]="i" class="row g-2 mb-2">
-              <div class="col-md-10">
+              
+              <div class="col-md-3">
+                <label class="form-label small fw-bold">Material Name</label>
                 <div class="input-group input-group-sm">
                   <span class="input-group-text compact-input-group-text"><i class="fas fa-box"></i></span>
                   <input type="text" class="form-control compact-input" formControlName="materialName" placeholder="Enter Material Name">
                 </div>
               </div>
+
+              <div class="col-md-3">
+                <label class="form-label small fw-bold">Material Details</label>
+                <div class="input-group input-group-sm">
+                  <span class="input-group-text compact-input-group-text"><i class="fas fa-info-circle"></i></span>
+                  <input type="text" class="form-control compact-input" formControlName="materialDetails" placeholder="Enter Material Details">
+                </div>
+              </div>
+
               <div class="col-md-2">
+                <label class="form-label small fw-bold">Material Type</label>
+                <select class="form-select compact-select" formControlName="materialType">
+                  <option value="Visitor">Visitor</option>
+                  <option value="Company">Company</option>
+                </select>
+              </div>
+
+              <div class="col-md-2">
+                <label class="form-label small fw-bold">Returnable</label>
+                <select class="form-select compact-select" formControlName="returnable">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
+
+              <div class="col-md-2 d-flex align-items-end">
                 <button type="button" class="btn btn-danger btn-sm w-100" (click)="removeMaterial(i)">
                   <i class="fas fa-times"></i> Remove
                 </button>
               </div>
+
             </div>
           </div>
           <button type="button" class="btn btn-primary btn-sm mt-2" (click)="addMaterial()">
@@ -159,48 +155,5 @@
         </button>
       </div>
     </form>
-  </div>
-</div>
-
-<!-- Toast Notifications -->
-<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1050">
-  <!-- Success Toast -->
-  <div
-    id="successToast"
-    class="toast align-items-center text-white bg-success border-0"
-    role="alert"
-    aria-live="assertive"
-    aria-atomic="true"
-  >
-    <div class="d-flex">
-      <div class="toast-body">✅ Visitor added successfully!</div>
-      <button
-        type="button"
-        class="btn-close btn-close-white me-2 m-auto"
-        data-bs-dismiss="toast"
-        aria-label="Close"
-      ></button>
-    </div>
-  </div>
-
-  
-
-  <!-- Error Toast -->
-  <div
-    id="errorToast"
-    class="toast align-items-center text-white bg-danger border-0"
-    role="alert"
-    aria-live="assertive"
-    aria-atomic="true"
-  >
-    <div class="d-flex">
-      <div class="toast-body">❌ All fields are required! Something went wrong.</div>
-      <button
-        type="button"
-        class="btn-close btn-close-white me-2 m-auto"
-        data-bs-dismiss="toast"
-        aria-label="Close"
-      ></button>
-    </div>
   </div>
 </div>
