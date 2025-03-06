@@ -19,12 +19,14 @@ interface Visitor {
 interface Material {
   name: string;
   details: string;
+  type: string;
+  returnable: string;
 }
 
 @Component({
   selector: 'app-visitor-list',
   standalone: true,
-  imports: [CommonModule, FormsModule,RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './visitor-list.component.html',
   styleUrls: ['./visitor-list.component.css'],
 })
@@ -37,7 +39,7 @@ export class VisitorListComponent implements OnInit {
   pageSizeOptions: (number | string)[] = [5, 10, 20, 50, 'All'];
 
   selectedVisitor: Visitor | null = null;
-  materials: Material[] = [{ name: '', details: '' }];
+  materials: Material[] = [{ name: '', details: '', type: 'Visitor', returnable: 'Yes' }];
 
   constructor(private router: Router) {}
 
@@ -103,7 +105,7 @@ export class VisitorListComponent implements OnInit {
       this.confirmExit();
     } else {
       bootstrap.Modal.getInstance(document.getElementById('exitConfirmationModal')).hide();
-      this.materials = [{ name: '', details: '' }];
+      this.materials = [{ name: '', details: '', type: 'Visitor', returnable: 'Yes' }];
       const materialModal = new bootstrap.Modal(document.getElementById('materialDetailsModal'));
       materialModal.show();
     }
@@ -115,19 +117,22 @@ export class VisitorListComponent implements OnInit {
       this.selectedVisitor.timeOut = this.getCurrentTime();
       this.applyFilter();
       this.showModalMessage();
-      this.router.navigate(['/home/search']);
     }
     bootstrap.Modal.getInstance(document.getElementById('exitConfirmationModal')).hide();
   }
 
   confirmExitWithMaterial() {
+    if (!this.isMaterialFormValid()) {
+      alert('Please fill in all material details.');
+      return;
+    }
+
     if (this.selectedVisitor) {
       this.selectedVisitor.status = 'Exited';
       this.selectedVisitor.timeOut = this.getCurrentTime();
       this.applyFilter();
       console.log('Material Details:', this.materials);
       this.showModalMessage();
-      this.router.navigate(['/home/search']);
     }
     bootstrap.Modal.getInstance(document.getElementById('materialDetailsModal')).hide();
   }
@@ -141,11 +146,15 @@ export class VisitorListComponent implements OnInit {
   }
 
   addMaterial() {
-    this.materials.push({ name: '', details: '' });
+    this.materials.push({ name: '', details: '', type: 'Visitor', returnable: 'Yes' });
   }
 
   removeMaterial(index: number) {
     this.materials.splice(index, 1);
+  }
+
+  isMaterialFormValid(): boolean {
+    return this.materials.every(material => material.name.trim() !== '' && material.details.trim() !== '');
   }
 
   navigateToEntry() {

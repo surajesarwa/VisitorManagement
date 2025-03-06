@@ -4,8 +4,8 @@
     <li class="breadcrumb-item active" aria-current="page">Pending Visitor List</li>
   </ol>
 </nav>
-<div class="container-fluid mt-3 card bg-white">
 
+<div class="container-fluid mt-3 card bg-white">
   <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
     <div class="text-center py-2 rounded-top compact-header">
       <i class="fa fa-list-alt me-2"></i> Pending Visitor List
@@ -34,6 +34,7 @@
           <th>Purpose</th>
           <th>Time In</th>
           <th>Status</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -44,9 +45,9 @@
           <td>{{ visitor.mobile }}</td>
           <td>{{ visitor.purpose }}</td>
           <td class="text-success fw-bold">{{ visitor.timeIn || 'Not Marked' }}</td>
+          <td>{{ visitor.status }}</td>
           <td>
-            <button class="btn btn-danger btn-sm px-2 py-1 shadow-sm"
-              (click)="openExitConfirmation(visitor)">
+            <button class="btn btn-danger btn-sm px-2 py-1 shadow-sm" (click)="openExitConfirmation(visitor)">
               Mark Exit
             </button>
           </td>
@@ -81,6 +82,7 @@
   </div>
 </div>
 
+<!-- Exit Confirmation Modal -->
 <div class="modal fade" id="exitConfirmationModal" tabindex="-1" aria-labelledby="exitConfirmationModalLabel"
   aria-hidden="true">
   <div class="modal-dialog">
@@ -100,6 +102,7 @@
   </div>
 </div>
 
+<!-- Material Details Modal -->
 <div class="modal fade" id="materialDetailsModal" tabindex="-1" aria-labelledby="materialDetailsModalLabel"
   aria-hidden="true">
   <div class="modal-dialog">
@@ -114,6 +117,14 @@
             placeholder="Material Name">
           <input type="text" class="form-control form-control-sm mt-1 shadow-sm" [(ngModel)]="material.details"
             placeholder="Material Details">
+          <select class="form-select form-select-sm mt-1 shadow-sm" [(ngModel)]="material.type">
+            <option value="Visitor">Visitor</option>
+            <option value="Company">Company</option>
+          </select>
+          <select class="form-select form-select-sm mt-1 shadow-sm" [(ngModel)]="material.returnable">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
           <button type="button" class="btn btn-danger btn-sm mt-1 shadow-sm" (click)="removeMaterial(i)">Remove</button>
         </div>
         <button type="button" class="btn btn-secondary btn-sm shadow-sm" (click)="addMaterial()">+ Add More</button>
@@ -126,6 +137,7 @@
   </div>
 </div>
 
+<!-- Success Message Modal -->
 <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content shadow-sm">
