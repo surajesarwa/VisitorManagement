@@ -113,26 +113,43 @@
       </div>
       <div class="modal-body">
         <div *ngFor="let material of materials; let i = index" class="mb-2">
-          <input type="text" class="form-control form-control-sm shadow-sm" [(ngModel)]="material.name"
+          <!-- Material Name -->
+          <label for="materialName{{i}}" class="form-label">Material Name</label>
+          <input type="text" id="materialName{{i}}" class="form-control form-control-sm shadow-sm" [(ngModel)]="material.name"
             placeholder="Material Name">
-          <input type="text" class="form-control form-control-sm mt-1 shadow-sm" [(ngModel)]="material.details"
+      
+          <!-- Material Details -->
+          <label for="materialDetails{{i}}" class="form-label mt-1">Material Details</label>
+          <input type="text" id="materialDetails{{i}}" class="form-control form-control-sm shadow-sm" [(ngModel)]="material.details"
             placeholder="Material Details">
-          <select class="form-select form-select-sm mt-1 shadow-sm" [(ngModel)]="material.type">
+      
+          <!-- Material Type -->
+          <label for="materialType{{i}}" class="form-label mt-1">Material Type</label>
+          <select id="materialType{{i}}" class="form-select form-select-sm shadow-sm" [(ngModel)]="material.type">
             <option value="Visitor">Visitor</option>
             <option value="Company">Company</option>
           </select>
-          <select class="form-select form-select-sm mt-1 shadow-sm" [(ngModel)]="material.returnable">
+      
+          <!-- Returnable Status -->
+          <label for="materialReturnable{{i}}" class="form-label mt-1">Returnable</label>
+          <select id="materialReturnable{{i}}" class="form-select form-select-sm shadow-sm" [(ngModel)]="material.returnable">
             <option value="Yes">Yes</option>
             <option value="No">No</option>
           </select>
+      
+          <!-- Remove Button -->
           <button type="button" class="btn btn-danger btn-sm mt-1 shadow-sm" (click)="removeMaterial(i)">Remove</button>
         </div>
+      
+        <!-- Add More Button -->
         <button type="button" class="btn btn-secondary btn-sm shadow-sm" (click)="addMaterial()">+ Add More</button>
       </div>
+      
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-primary btn-sm shadow-sm" (click)="confirmExitWithMaterial()">Submit</button>
       </div>
+      
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 
@@ -11,13 +11,12 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 })
 export class NavbarComponent {
   @Output() toggleSidebarEvent = new EventEmitter<void>();
-  hasUnreadNotifications: boolean = true; // Change dynamically when notifications arrive
+  hasUnreadNotifications: boolean = true;
+
+  @ViewChild('notificationBox') notificationBox!: ElementRef;
+  isNotificationOpen: boolean = false;
 
   constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: any) {}
-
-  toggleSidebar() {
-    this.toggleSidebarEvent.emit(); // Emit event to toggle sidebar
-  }
 
   visitors = [
     { id: 101, name: 'Ravi Kumar', entryTime: '10:30 AM', exitTime: '' },
@@ -26,26 +25,43 @@ export class NavbarComponent {
     { id: 104, name: 'Rahul Gupta', entryTime: '12:20 PM', exitTime: '1:30 PM' },
     { id: 105, name: 'Pooja Mehta', entryTime: '1:00 PM', exitTime: '' }
   ];
+
+  toggleSidebar() {
+    this.toggleSidebarEvent.emit();
+  }
+
   openSettings() {
     alert("Open settings modal or navigate to settings page.");
-    // You can navigate to a settings page like this:
-    // this.router.navigate(['/settings']);
   }
 
   logout() {
     if (confirm("Are you sure you want to log out?")) {
       alert("Logging out...");
-      // Implement actual logout logic here
-      // this.router.navigate(['/login']); // Redirect to login page
     }
   }
 
-  openNotifications(): void {
+  openNotifications(event: Event): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Access the DOM only in the browser
+      this.isNotificationOpen = !this.isNotificationOpen;
       const collapseElement = document.getElementById('notificationCollapse');
       if (collapseElement) {
-        collapseElement.classList.toggle('show');
+        if (this.isNotificationOpen) {
+          collapseElement.classList.add('show');
+        } else {
+          collapseElement.classList.remove('show');
+        }
+      }
+    }
+    event.stopPropagation(); // Prevents click from propagating to document click listener
+  }
+
+  @HostListener('document:click', ['$event'])
+  closeNotification(event: Event) {
+    if (this.isNotificationOpen && this.notificationBox && !this.notificationBox.nativeElement.contains(event.target)) {
+      this.isNotificationOpen = false;
+      const collapseElement = document.getElementById('notificationCollapse');
+      if (collapseElement) {
+        collapseElement.classList.remove('show');
       }
     }
   }
