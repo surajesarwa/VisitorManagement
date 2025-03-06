@@ -1,6 +1,6 @@
 <nav class="sidebar" [class.sidebar-collapsed]="isSidebarCollapsed"> 
-  <div class="profile-section">
-    <img src="https://esarwa.com/assets/homepage/e-logo-2.svg" alt="Company Logo" class="profile-img">
+  <div class="profile-section" (click)="open()">
+    <img src="https://esarwa.com/assets/homepage/e-logo-2.svg" alt="Company Logo" class="profile-img" >
     <div class="profile-info">
       <!-- <h1 class="profile-name">Company Name</h1> -->
     </div>
@@ -37,11 +37,12 @@
   <!-- Help & Logout Section -->
   <div class="sidebar-footer">
     <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="nav-link help-btn">
-          <i class="fas fa-question-circle"></i> <span>Help</span>
-        </a>
-      </li>
+      <!-- Help Button -->
+       <li class="nav-item">
+          <a class="nav-link help-btn" data-bs-toggle="modal" data-bs-target="#helpModal">
+         <i class="fas fa-question-circle"></i> <span>Help</span>
+       </a>
+     </li>
       <li class="nav-item logout-item">
         <a class="nav-link logout-btn" (click)="logout()">
           <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
@@ -52,3 +53,29 @@
 </nav>
 
 <div class="backdrop" *ngIf="isSidebarCollapsed" (click)="toggleSidebar()"></div>
+
+
+<!-- Help Modal -->
+<div class="modal" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="helpModalLabel">Need Help?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (submit)="submitHelpForm($event)">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" [(ngModel)]="helpEmail" name="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="reason" class="form-label">Reason</label>
+            <textarea class="form-control" id="reason" rows="3" [(ngModel)]="helpReason" name="reason" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

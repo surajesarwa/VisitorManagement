@@ -1,0 +1,28 @@
+<div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+    <!-- Logo Positioned Above the Form -->
+    <img src="https://esarwa.com/assets/homepage/e-logo-2.svg" alt="Logo" class="mb-3" style="width: 240px; height: auto; padding: 10px;">
+  
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header text-center">
+          <h3>Login</h3>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" name="username" ngModel required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" name="password" ngModel required>
+            </div>
+            <div class="text-center mt-3">
+              <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

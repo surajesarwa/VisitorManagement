@@ -6,11 +6,17 @@ import { SearchComponent } from './component/search/search.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { VisitorListComponent } from './visitor-list/visitor-list.component';
 import { MaterialComponent } from './material/material.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
     {
+        path:'login',
+        component:LoginComponent,
+        pathMatch:'full'
+    },
+    {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'login',
         pathMatch: 'full'
     },
     {
@@ -45,7 +51,8 @@ export const routes: Routes = [
                 path:'material',
                 component:MaterialComponent,
                 pathMatch:'full'
-            }
+            },
+
         ]
     },
     {

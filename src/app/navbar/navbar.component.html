@@ -5,7 +5,27 @@
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpCKq1XnPYYDaUIlwlsvmLPZ-9-rdK28RToA&s" 
          alt="User Profile" class="profile-img">
     <div class="icons">
-      <i class="fas fa-bell notification-icon" (click)="openNotifications()"></i>
+      <div class="dropdown">
+        <i class="fas fa-bell notification-icon" id="notificationIcon"
+           (click)="openNotifications()"> <span class="badge" style="font-size: 9px; color: black; background-color: red;">4</span></i>
+
+           <div class="collapse notification-box" id="notificationCollapse">
+            <div class="card card-body">
+              <div>
+                <h5>Pending Exits</h5>
+                <ul class="list-group">
+                  <li *ngFor="let visitor of visitors" class="list-group-item">
+                    {{ visitor.name }} (ID: {{ visitor.id }}) - {{ visitor.entryTime }} - <span style="color: red;">Exit time pending</span>
+                  </li>
+                </ul>
+              </div>
+              <ng-template #noPending>
+                <p class="text-muted">No pending visitors.</p>
+              </ng-template>
+            </div>
+          </div>
+          
+      </div>
       <i class="fas fa-cog settings-icon" (click)="openSettings()"></i>
     </div>
   </div>
