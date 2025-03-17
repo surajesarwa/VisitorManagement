@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-
+import { isPlatformBrowser } from '@angular/common';
 interface MaterialEntry {
   id: string;
   materialName: string;
@@ -21,7 +21,7 @@ interface MaterialEntry {
 @Component({
   selector: 'app-material',
   standalone: true,
-  imports: [CommonModule, FormsModule,RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './material.component.html',
   styleUrls: ['./material.component.css']
 })
@@ -29,13 +29,22 @@ export class MaterialComponent implements OnInit {
   materialEntries: MaterialEntry[] = [];
   filteredEntries: MaterialEntry[] = [];
   searchText = '';
-  statusFilter: 'all' | 'in' | 'out' = 'all';
+  statusFilter: 'all' | 'in' | 'out' | 'visitor' | 'company' = 'all';
+  isBrowser!: boolean;
 
-  constructor() { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit(): void {
-    this.generateSampleData();
-    this.applyFilter();
+    // this.generateSampleData();
+    // this.applyFilter();
+    if (this.isBrowser) {
+      // Only run browser-specific code here
+      this.generateSampleData();
+      this.applyFilter();
+    }
+  
   }
 
   generateSampleData(): void {
@@ -104,29 +113,46 @@ export class MaterialComponent implements OnInit {
   }
 
   applyFilter(): void {
-    let filtered = this.materialEntries;
-
+    let filtered = [...this.materialEntries]; // Clone the original array to avoid modifying it
+  
+    console.log('Applying Filter:', this.statusFilter, this.searchText); // Debugging line
+  
+    // Apply status filter
     if (this.statusFilter !== 'all') {
-      filtered = filtered.filter(entry => entry.status === this.statusFilter);
+      if (this.statusFilter === 'in' || this.statusFilter === 'out') {
+        filtered = filtered.filter(entry => entry.status === this.statusFilter);
+      } else if (this.statusFilter === 'visitor') {
+        filtered = filtered.filter(entry => entry.materialType === 'visitor');
+      } else if (this.statusFilter === 'company') {
+        filtered = filtered.filter(entry => entry.materialType === 'company');
+      }
     }
-
-    filtered = filtered.filter(entry =>
-      entry.materialName.toLowerCase().includes(this.searchText.toLowerCase()) ||
-      entry.materialDetails.toLowerCase().includes(this.searchText.toLowerCase()) ||
-      entry.visitorId.toLowerCase().includes(this.searchText.toLowerCase())
-    );
-
+  
+    // Apply search filter
+    if (this.searchText.trim() !== '') {
+      filtered = filtered.filter(entry =>
+        entry.materialName.toLowerCase().includes(this.searchText.toLowerCase()) ||
+        entry.materialDetails.toLowerCase().includes(this.searchText.toLowerCase()) ||
+        entry.visitorId.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    }
+  
+    console.log('Filtered Entries:', filtered); // Debugging line
+  
     this.filteredEntries = filtered;
   }
-
-  filterByStatus(status: 'all' | 'in' | 'out'): void {
+  
+  filterByStatus(status: 'all' | 'in' | 'out' | 'visitor' | 'company'): void {
     this.statusFilter = status;
+    console.log('Status Filter Updated:', status); // Debugging line
     this.applyFilter();
   }
-
+  
   generateUniqueId(): string {
     return 'material-' + Math.random().toString(36).substr(2, 9);
   }
+
+  
 
   addMaterialEntry(materialName: string, materialDetails: string, visitorId: string, status: 'in' | 'out'): void {
     const now = new Date();
