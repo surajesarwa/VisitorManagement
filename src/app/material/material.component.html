@@ -18,19 +18,14 @@
           [(ngModel)]="searchText" (input)="applyFilter()">
       </div>
     </div>
-    <div class="col-12 col-md-4">
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="statusFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-          Filter by Status
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="statusFilterDropdown">
-          <li><a class="dropdown-item" (click)="filterByStatus('all')">All</a></li>
-          <li><a class="dropdown-item" (click)="filterByStatus('in')">In</a></li>
-          <li><a class="dropdown-item" (click)="filterByStatus('out')">Out</a></li>
-          <li><a class="dropdown-item" (click)="filterByStatus('visitor')">Visitor</a></li>
-          <li><a class="dropdown-item" (click)="filterByStatus('company')">Company</a></li>
-        </ul>
-      </div>
+    <div class="col-md-3 col-sm-6">
+    <select class="form-select form-select-sm" placeholder="Filter by Status" id="statusFilter" [(ngModel)]="value_get" (change)="filterByStatus(value_get)">
+      <option value="all">All</option>
+      <option value="in">In</option>
+      <option value="out">Out</option>
+      <option value="visitor">Visitor</option>
+      <option value="company">Company</option>
+    </select>
     </div>
   </div>
 
@@ -88,4 +83,16 @@
       </tbody>
     </table>
   </div>
+</div>
+
+
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropdown button
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+  </ul>
 </div>

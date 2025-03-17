@@ -31,10 +31,13 @@ export class MaterialComponent implements OnInit {
   searchText = '';
   statusFilter: 'all' | 'in' | 'out' | 'visitor' | 'company' = 'all';
   isBrowser!: boolean;
+  value_get: any='all';
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
+
+
 
   ngOnInit(): void {
     // this.generateSampleData();
@@ -46,6 +49,12 @@ export class MaterialComponent implements OnInit {
     }
   
   }
+filterByStatus(event: any): void {
+    this.statusFilter = event
+    console.log('Status Filter Updated:', status); // Debugging line
+    this.applyFilter();
+  }
+
 
   generateSampleData(): void {
     const now = new Date();
@@ -142,11 +151,11 @@ export class MaterialComponent implements OnInit {
     this.filteredEntries = filtered;
   }
   
-  filterByStatus(status: 'all' | 'in' | 'out' | 'visitor' | 'company'): void {
-    this.statusFilter = status;
-    console.log('Status Filter Updated:', status); // Debugging line
-    this.applyFilter();
-  }
+  // filterByStatus(status: 'all' | 'in' | 'out' | 'visitor' | 'company'): void {
+  //   this.statusFilter = status;
+  //   console.log('Status Filter Updated:', status); // Debugging line
+  //   this.applyFilter();
+  // }
   
   generateUniqueId(): string {
     return 'material-' + Math.random().toString(36).substr(2, 9);
